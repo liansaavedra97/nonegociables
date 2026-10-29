@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>NO NEGOCIABLES</title>
+  <meta name="description" content="Registro diario de tus no negociables. Funciona sin conexión y guarda tus datos solo en este dispositivo.">
+  <meta name="theme-color" content="#14181F" id="meta-theme">
+  <meta name="color-scheme" content="dark light">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="No negociables">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="preload" href="./fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./theme-init.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- SVG sprite: iconos ligeros reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-today" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-history" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+      <symbol id="i-stats" viewBox="0 0 24 24"><path d="M5 20V12M10 20V5M15 20v-9M20 20v-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+      <symbol id="i-habits" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="4.5" cy="6" r="1.4" fill="currentColor"/><circle cx="4.5" cy="12" r="1.4" fill="currentColor"/><circle cx="4.5" cy="18" r="1.4" fill="currentColor"/></symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><circle cx="16" cy="7" r="2.3" fill="none" stroke="currentColor" stroke-width="1.9"/><circle cx="10" cy="17" r="2.3" fill="none" stroke="currentColor" stroke-width="1.9"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M5.5 12.5l4 4L18.5 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-more" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.7" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/><circle cx="18" cy="12" r="1.7" fill="currentColor"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+      <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+      <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-up" viewBox="0 0 24 24"><path d="M6 14.5l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z" fill="currentColor"/></symbol>
+      <symbol id="i-star-o" viewBox="0 0 24 24"><path d="M12 3.8l2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0112 0v5.5l1.5 1.5h-15zM10 20.5h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+      <symbol id="i-offline" viewBox="0 0 24 24"><path d="M3 4l18 16M8.5 16.3a5 5 0 016.6-.3M5.2 12.8a9.5 9.5 0 015.1-2.6M18.8 12.8a9.6 9.6 0 00-3-2M2 9.3A14 14 0 018 6.4M22 9.3a14 14 0 00-7.6-3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="19.5" r="1.3" fill="currentColor"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="app" id="app" hidden>
+    <header class="topbar">
+      <div class="brand" aria-label="NO NEGOCIABLES">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name" id="brand-name">NO NEGOCIABLES</span>
+      </div>
+      <div class="topbar-status">
+        <span class="pill pill-offline" id="offline-pill" hidden><svg class="ic"><use href="#i-offline"/></svg>Sin conexión</span>
+      </div>
+    </header>
+
+    <div class="banner" id="update-banner" role="status" hidden>
+      <span>Hay una versión nueva de la app.</span>
+      <button class="btn btn-small btn-accent" id="update-btn" type="button">Actualizar</button>
+    </div>
+    <div class="banner banner-quiet" id="reminder-banner" role="status" hidden></div>
+
+    <main id="main" tabindex="-1">
+      <section class="view" id="view-today" aria-labelledby="today-title"></section>
+      <section class="view" id="view-history" aria-labelledby="history-title" hidden></section>
+      <section class="view" id="view-stats" aria-labelledby="stats-title" hidden></section>
+      <section class="view" id="view-habits" aria-labelledby="habits-title" hidden></section>
+      <section class="view" id="view-settings" aria-labelledby="settings-title" hidden></section>
+    </main>
+
+    <nav class="tabbar" aria-label="Secciones">
+      <button class="tab" type="button" data-view="today" aria-current="page"><svg class="ic"><use href="#i-today"/></svg><span>Hoy</span></button>
+      <button class="tab" type="button" data-view="history"><svg class="ic"><use href="#i-history"/></svg><span>Historial</span></button>
+      <button class="tab" type="button" data-view="stats"><svg class="ic"><use href="#i-stats"/></svg><span>Estadísticas</span></button>
+      <button class="tab" type="button" data-view="habits"><svg class="ic"><use href="#i-habits"/></svg><span>Hábitos</span></button>
+      <button class="tab" type="button" data-view="settings"><svg class="ic"><use href="#i-settings"/></svg><span>Ajustes</span></button>
+    </nav>
+  </div>
+
+  <!-- Asistente de configuración inicial -->
+  <section class="onboarding" id="onboarding" hidden aria-labelledby="ob-title"></section>
+
+  <!-- Pantalla de carga / error fatal -->
+  <div class="boot" id="boot" role="status">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <p id="boot-msg">Cargando…</p>
+  </div>
+
+  <!-- Hoja genérica (editor de hábito, cantidad, resumen del día, confirmaciones) -->
+  <dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+    <div class="sheet-inner" id="sheet-body"></div>
+  </dialog>
+
+  <div class="toast-region" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+  <noscript><p class="noscript">NO NEGOCIABLES necesita JavaScript activado para funcionar.</p></noscript>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
